@@ -1,62 +1,44 @@
 import React from 'react';
 
+const produtos = [
+  {
+    id: 1,
+    nome: 'Smartphone',
+    preco: 'R$ 2000',
+    cores: ['#29d8d5', '#252a34', '#fc3766'],
+  },
+  {
+    id: 2,
+    nome: 'Notebook',
+    preco: 'R$ 3000',
+    cores: ['#ffd045', '#d4394b', '#f37c59'],
+  },
+  {
+    id: 3,
+    nome: 'Tablet',
+    preco: 'R$ 1500',
+    cores: ['#365069', '#47c1c8', '#f95786'],
+  },
+];
+
 const App = () => {
-  const mario = {
-    nome: 'Mario',
-    idade: '50 anos',
-    compras: [
-      { nome: 'notebook', preco: 1000 },
-      { nome: 'geladeira', preco: 2000 },
-    ],
-    ativa: false,
-  };
-  const maria = {
-    nome: 'Maria',
-    idade: '35 anos',
-    compras: [
-      { nome: 'notebook', preco: 3000 },
-      { nome: 'geladeira', preco: 4000 },
-    ],
-    ativa: true,
-  };
-  const jose = {
-    nome: 'Jose',
-    idade: '75 anos',
-    compras: [
-      { nome: 'notebook', preco: 6000 },
-      { nome: 'geladeira', preco: 7000 },
-    ],
-    ativa: false,
-  };
-
-  const clienteAtual = jose;
-
-  const totalCompras = clienteAtual.compras.map((item) => item.preco).reduce((a, b) => a + b);
-  console.log(totalCompras);
-
-  const estiloAtivo = {
-    color: 'greewn',
-    fontSize: '10px',
-    fontFamily: 'Helvetica',
-  };
-  const estiloNegativo = {
-    color: 'red',
-    fontSize: '15px',
-    fontFamily: 'Helvetica',
-  };
-
+  const dados = produtos.filter(({ preco }) => Number(preco.replace('R$ ', '')) > 1500);
   return (
-    <>
-      <p>Nome: {clienteAtual.nome}</p>
-      <p>Idade: {clienteAtual.idade}</p>
-      <p>
-        {' '}
-        Situação:
-        <span style={{ color: clienteAtual.ativa ? 'green' : 'red' }}> {clienteAtual.ativa ? 'Ativa' : 'inativa'}</span>
-      </p>
-      <p>Valor total das compras: {totalCompras}</p>
-      <p>{totalCompras > 5000 ? <p>Você passou do limite</p> : <p>Voce esta dentro do limite</p>}</p>
-    </>
+    <section>
+      {dados.map(({ id, nome, preco, cores }) => (
+        <div key={id}>
+          <h1>{nome}</h1>
+          <p>Preço: {preco}</p>
+          <ul>
+            {cores.map((cor) => (
+              <li style={{ backgroundColor: cor, color: 'white' }} key={cor}>
+                {cor}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </section>
   );
 };
 
